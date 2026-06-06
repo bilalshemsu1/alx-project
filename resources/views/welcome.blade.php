@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ቅድሚያ ለጤናዎ — Post-Visit Health Monitoring</title>
+  <title>ቅድሚያ ለጤናዎ</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -215,7 +215,7 @@
       <!-- Subheading -->
       <div class="text-reveal-wrap mb-10">
         <p class="text-reveal-anim text-lg md:text-xl font-light text-slate-500 leading-relaxed max-w-2xl mx-auto" style="animation-delay:0.3s">
-          VitaTrack helps doctors monitor patients after hospital visits with smart reminders, meal guidance, medication tracking, and real-time activity monitoring.
+          ቅድሚያ ለጤናዎ helps doctors monitor patients after hospital visits with smart reminders, meal guidance, medication tracking, and real-time activity monitoring.
         </p>
       </div>
 
@@ -280,7 +280,7 @@
           Everything you need to<br><span class="font-serif italic text-emerald-600">stay healthy</span>
         </h2>
         <p class="text-slate-500 font-light text-lg max-w-2xl mx-auto leading-relaxed">
-          VitaTrack provides a comprehensive suite of tools that guide patients through their recovery and keep doctors informed every step of the way.
+          ቅድሚያ ለጤናዎ provides a comprehensive suite of tools that guide patients through their recovery and keep doctors informed every step of the way.
         </p>
       </div>
 
@@ -616,7 +616,7 @@
             <div class="flex-1 flex justify-center">
               <div class="bg-white border border-slate-200 rounded-sm px-4 py-1 text-[11px] text-slate-400 flex items-center gap-2">
                 <i class="fa-solid fa-lock text-[8px] text-green-500"></i>
-                vitatrack.health/dashboard
+ቅድሚያ ለጤናዎ.health/dashboard
               </div>
             </div>
           </div>
@@ -764,19 +764,19 @@
         <div class="md:w-1/2 reveal">
           <div class="relative group">
             <div class="absolute -inset-4 bg-emerald-100/50 rounded-sm blur-xl group-hover:bg-emerald-100/80 transition-all duration-700"></div>
-            <img src="https://picsum.photos/seed/vitatrack-doctor/600/500.jpg" alt="Doctor consulting patient" class="relative w-full rounded-sm border border-slate-200 grayscale group-hover:grayscale-0 transition-all duration-700">
+            <img src="https://picsum.photos/seed/ቅድሚያ-ለጤናዎ-doctor/600/500.jpg" alt="Doctor consulting patient" class="relative w-full rounded-sm border border-slate-200 grayscale group-hover:grayscale-0 transition-all duration-700">
           </div>
         </div>
 
         <!-- Right: Content -->
         <div class="md:w-1/2 reveal reveal-delay-2">
-          <span class="text-xs font-semibold uppercase tracking-widest text-emerald-600 mb-4 block">About VitaTrack</span>
+          <span class="text-xs font-semibold uppercase tracking-widest text-emerald-600 mb-4 block">About ቅድሚያ ለጤናዎ</span>
           <h2 class="text-3xl md:text-5xl font-medium tracking-tight mb-6 text-slate-900">
             Bridging the gap<br>between <span class="font-serif italic text-emerald-600">visits</span>
           </h2>
           <div class="space-y-4 text-slate-500 font-light leading-relaxed">
             <p>After a hospital visit, patients often struggle to follow through on medical instructions. Missed medications, poor diet choices, and skipped follow-ups lead to readmissions and worsening conditions.</p>
-            <p>VitaTrack was built to solve this. By giving doctors a way to set up structured recovery plans and patients a simple interface to follow them, we create a continuous care loop that reduces readmissions and improves outcomes.</p>
+            <p>ቅድሚያ ለጤናዎ was built to solve this. By giving doctors a way to set up structured recovery plans and patients a simple interface to follow them, we create a continuous care loop that reduces readmissions and improves outcomes.</p>
             <p>Our system is designed for real clinical environments — simple enough for elderly patients, powerful enough for busy doctors.</p>
           </div>
 
@@ -811,7 +811,7 @@
           Let's <span class="font-serif italic text-emerald-600">connect</span>
         </h2>
         <p class="text-slate-500 font-light text-lg max-w-xl mx-auto leading-relaxed">
-          Interested in implementing VitaTrack at your hospital? Have questions? We'd love to hear from you.
+          Interested in implementing ቅድሚያ ለጤናዎ at your hospital? Have questions? We'd love to hear from you.
         </p>
       </div>
 
@@ -852,7 +852,7 @@
               </div>
               <div>
                 <div class="text-sm font-medium text-slate-800">Email</div>
-                <div class="text-sm text-slate-400">hello@vitatrack.health</div>
+                <div class="text-sm text-slate-400">hello@ቅድሚያ-ለጤናዎ.health</div>
               </div>
             </div>
             <div class="group flex items-center gap-4 bg-white border border-slate-100 hover:border-emerald-200 rounded-sm p-5 transition-all duration-300 shadow-sm">
@@ -877,12 +877,12 @@
 
           <!-- Map Placeholder -->
           <div class="relative rounded-sm overflow-hidden border border-slate-200 h-48">
-            <img src="https://picsum.photos/seed/vitatrack-map/600/250.jpg" alt="Map location" class="w-full h-full object-cover opacity-60">
+            <img src="https://picsum.photos/seed/ቅድሚያ-ለጤናዎ-map/600/250.jpg" alt="Map location" class="w-full h-full object-cover opacity-60">
             <div class="absolute inset-0 flex items-center justify-center bg-slate-100/30 backdrop-blur-[1px]">
               <div class="bg-white/90 backdrop-blur-xl border border-slate-200 rounded-sm px-6 py-4 flex items-center gap-3 shadow-lg">
                 <div class="w-3 h-3 bg-emerald-500 rounded-full relative pulse-ring"></div>
                 <div>
-                  <div class="text-sm font-medium text-slate-800">VitaTrack HQ</div>
+                  <div class="text-sm font-medium text-slate-800">ቅድሚያ ለጤናዎ HQ</div>
                   <div class="text-[10px] text-slate-400">350 Medical Drive, SF</div>
                 </div>
               </div>
@@ -960,7 +960,7 @@
 
       <!-- Bottom bar -->
       <div class="pt-8 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
-        <div class="text-xs text-slate-300">© 2025 VitaTrack. All rights reserved. Built for Hackathon MVP.</div>
+        <div class="text-xs text-slate-300">© 2025 ቅድሚያ ለጤናዎ. All rights reserved. Built for Hackathon MVP.</div>
         <div class="flex items-center gap-4">
           <a href="#" class="text-slate-300 hover:text-emerald-500 transition-colors duration-300">
             <i class="fa-brands fa-x-twitter"></i>

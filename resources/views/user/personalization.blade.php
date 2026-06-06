@@ -1,6 +1,6 @@
 @extends('layouts.user')
 
-@section('title', 'Personalization - VitaTrack')
+@section('title', 'Personalization - ቅድሚያ ለጤናዎ')
 @section('page-title', 'Personalization')
 
 @section('content')

@@ -6,13 +6,13 @@
 @section('content')
   <div class="mx-auto space-y-6 sm:space-y-8">
     <div class="reveal rounded-sm border border-emerald-100 bg-emerald-50/70 p-5 sm:p-6">
-      <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+<div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <div class="mb-2 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-700">
             Today status
           </div>
           <h1 class="text-3xl md:text-4xl font-medium tracking-tight text-slate-900">
-            Hello, <span class="font-serif italic text-emerald-600">James Wilson</span>
+            Hello, <span class="font-serif italic text-emerald-600">{{ $patient->name ?? 'Patient' }}</span>
           </h1>
           <p class="mt-3 max-w-2xl text-slate-600 font-light leading-relaxed">
             Your dashboard is organized into simple cards so any patient can quickly understand what to do today.
