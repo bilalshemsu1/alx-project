@@ -41,12 +41,10 @@ class DashboardController
 
         $lateTasksTodayCount = (clone $doneTasksTodayQuery)
             ->whereNotNull('completed_at')
-            ->whereColumn('completed_at', '>', function ($q) {
-                $q->selectRaw('DATE_ADD(due_datetime, INTERVAL 30 MINUTE)')
-                    ->from('tasks')
-                    ->limit(1);
-            })
+            ->whereRaw("completed_at > date(due_datetime) || completed_at > datetime(due_datetime, '+30 minutes')")
             ->count();
+
+
 
         $missedTasksTodayCount = (clone $baseTasks)
             ->whereBetween('due_datetime', [$tasksToday, $tasksTomorrow])
@@ -96,6 +94,12 @@ class DashboardController
             ->limit(3)
             ->get(['type', 'message']);
 
+        $mealPlanItems = $patient
+            ->mealPlans()
+            ->where('day', $now->toDateString())
+            ->orderBy('meal_time', 'asc')
+            ->get(['meal_time', 'description']);
+
         return view('user.dashboard', [
             'patient' => $patient,
             'stats' => [
@@ -107,10 +111,12 @@ class DashboardController
             ],
             'taskItems' => $taskItems,
             'medicineItems' => $medicineItems,
+            'mealPlanItems' => $mealPlanItems,
             'nextAppointment' => $nextAppointment,
             'alerts' => $alerts,
             'now' => $now,
         ]);
+
     }
 }
 
