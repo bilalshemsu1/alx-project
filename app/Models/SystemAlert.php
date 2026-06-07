@@ -14,7 +14,13 @@ class SystemAlert extends Model
         'user_id',
         'type',
         'message',
+        'read_at',
     ];
+
+    protected $casts = [
+        'read_at' => 'datetime',
+    ];
+
 
     public function user(): BelongsTo
     {
