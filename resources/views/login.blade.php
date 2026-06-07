@@ -180,7 +180,8 @@
           <i class="fa-solid fa-arrow-right text-xs"></i>
         </button>
       </form>
-
+      
+    <p class="mt-5 font-light"><b>User</b>: <b>email</b>: patient@example.com || <b>password</b>: password</p>
     </div>
   </div>
 

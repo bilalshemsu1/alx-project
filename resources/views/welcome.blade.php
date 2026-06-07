@@ -159,13 +159,13 @@
 
       <!-- CTA Button -->
       <div class="flex items-center gap-4">
-        <a href="#features" class="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors duration-300">
+        <a href="#how-it-works" class="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors duration-300">
           See How It Works
           <i class="fa-solid fa-arrow-right text-xs"></i>
         </a>
-        <button onclick="showToast('Welcome! Demo mode is active.')" class="bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold px-5 py-2.5 rounded-sm transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_-8px_rgba(16,185,129,0.5)]">
+        <a href="{{ url('/login') }}" class="bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold px-5 py-2.5 rounded-sm transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_-8px_rgba(16,185,129,0.5)]">
           Get Started
-        </button>
+        </a>
         <!-- Mobile menu toggle -->
         <button id="mobile-menu-btn" class="md:hidden text-slate-700" onclick="toggleMobileMenu()">
           <i class="fa-solid fa-bars text-xl"></i>
@@ -221,10 +221,10 @@
 
       <!-- CTA Buttons -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4" style="animation: text-slide-up 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s both">
-        <button onclick="showToast('Demo mode activated! Explore the features below.')" class="group bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-lg px-10 py-5 rounded-sm transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)] flex items-center gap-3">
+        <a href="{{ url('/login') }}" class="group bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-lg px-10 py-5 rounded-sm transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)] flex items-center gap-3">
           Get Started
           <i class="fa-solid fa-arrow-right transition-transform duration-300 group-hover:translate-x-1"></i>
-        </button>
+        </a>
         <a href="#how-it-works" class="group flex items-center gap-2 text-slate-500 hover:text-slate-900 font-medium text-sm transition-colors duration-300 px-6 py-4">
           <i class="fa-regular fa-circle-play text-lg text-emerald-500"></i>
           See How It Works
@@ -931,17 +931,17 @@
             <a href="#features" class="block text-sm text-slate-400 hover:text-emerald-600 transition-colors duration-300">Features</a>
             <a href="#how-it-works" class="block text-sm text-slate-400 hover:text-emerald-600 transition-colors duration-300">How It Works</a>
             <a href="#preview" class="block text-sm text-slate-400 hover:text-emerald-600 transition-colors duration-300">Preview</a>
-            <a href="#" class="block text-sm text-slate-400 hover:text-emerald-600 transition-colors duration-300">Pricing</a>
+            <a href="#about" class="block text-sm text-slate-400 hover:text-emerald-600 transition-colors duration-300">About</a>
           </div>
         </div>
 
-        <!-- Company -->
+        <!-- Portals -->
         <div>
-          <div class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-4">Company</div>
+          <div class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-4">Portals</div>
           <div class="space-y-2.5">
-            <a href="#about" class="block text-sm text-slate-400 hover:text-emerald-600 transition-colors duration-300">About</a>
-            <a href="#" class="block text-sm text-slate-400 hover:text-emerald-600 transition-colors duration-300">Careers</a>
-            <a href="#" class="block text-sm text-slate-400 hover:text-emerald-600 transition-colors duration-300">Blog</a>
+            <a href="{{ url('/login') }}" class="block text-sm text-slate-400 hover:text-emerald-600 transition-colors duration-300">Patient Login</a>
+            <a href="{{ url('/login') }}" class="block text-sm text-slate-400 hover:text-emerald-600 transition-colors duration-300">Doctor Login</a>
+            <a href="{{ url('/login') }}" class="block text-sm text-slate-400 hover:text-emerald-600 transition-colors duration-300">Admin Login</a>
             <a href="#contact" class="block text-sm text-slate-400 hover:text-emerald-600 transition-colors duration-300">Contact</a>
           </div>
         </div>

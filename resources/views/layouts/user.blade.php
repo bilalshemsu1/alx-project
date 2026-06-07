@@ -133,53 +133,26 @@
         <div class="relative">
           <button onclick="toggleNotifications()" class="w-9 h-9 bg-slate-50 hover:bg-slate-100 border border-slate-100 rounded-sm flex items-center justify-center transition-colors focus:outline-none">
             <i class="fa-regular fa-bell text-slate-600"></i>
-            <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[8px] font-bold rounded-full flex items-center justify-center border-2 border-white">3</span>
+            <span id="notification-badge" class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[8px] font-bold rounded-full flex items-center justify-center border-2 border-white hidden">0</span>
           </button>
+
 
           <div id="notification-dropdown" class="hidden absolute top-full right-0 mt-3 w-80 bg-white border border-slate-200 rounded-sm shadow-xl z-[60] overflow-hidden">
             <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
               <span class="text-sm font-semibold text-slate-900">Notifications</span>
-              <span class="text-xs text-emerald-600 font-medium cursor-pointer hover:underline">Mark all as read</span>
+              <span id="mark-all-read" class="text-xs text-emerald-600 font-medium cursor-pointer hover:underline">Mark all as read</span>
             </div>
-            <div class="max-h-72 overflow-y-auto">
-              <div class="flex gap-3 p-4 bg-emerald-50/50 border-b border-slate-100 hover:bg-slate-50 transition-colors cursor-pointer">
-                <div class="w-8 h-8 bg-red-100 rounded-sm flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <i class="fa-solid fa-triangle-exclamation text-red-500 text-xs"></i>
-                </div>
-                <div class="flex-1">
-                  <div class="text-xs font-semibold text-slate-900">Missed Medication Alert</div>
-                  <div class="text-[11px] text-slate-500 mt-0.5">You missed your 8:00 AM Metformin dose.</div>
-                  <div class="text-[10px] text-slate-400 mt-1">15 mins ago</div>
-                </div>
-                <div class="w-2 h-2 bg-emerald-500 rounded-full mt-1.5 flex-shrink-0"></div>
-              </div>
-              <div class="flex gap-3 p-4 bg-emerald-50/50 border-b border-slate-100 hover:bg-slate-50 transition-colors cursor-pointer">
-                <div class="w-8 h-8 bg-blue-100 rounded-sm flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <i class="fa-regular fa-calendar text-blue-500 text-xs"></i>
-                </div>
-                <div class="flex-1">
-                  <div class="text-xs font-semibold text-slate-900">Upcoming Appointment</div>
-                  <div class="text-[11px] text-slate-500 mt-0.5">Dr. Mitchell - Cardiology, Tomorrow 10:30 AM</div>
-                  <div class="text-[10px] text-slate-400 mt-1">2 hours ago</div>
-                </div>
-                <div class="w-2 h-2 bg-emerald-500 rounded-full mt-1.5 flex-shrink-0"></div>
-              </div>
-              <div class="flex gap-3 p-4 hover:bg-slate-50 transition-colors cursor-pointer">
-                <div class="w-8 h-8 bg-green-100 rounded-sm flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <i class="fa-solid fa-check text-green-600 text-xs"></i>
-                </div>
-                <div class="flex-1">
-                  <div class="text-xs font-medium text-slate-700">Activity Completed</div>
-                  <div class="text-[11px] text-slate-400 mt-0.5">Morning walk successfully logged.</div>
-                  <div class="text-[10px] text-slate-300 mt-1">Yesterday</div>
-                </div>
-              </div>
+
+            <div class="max-h-72 overflow-y-auto" id="notification-items">
+              <div class="p-4 text-xs text-slate-500">Loading…</div>
             </div>
+
             <div class="px-4 py-3 border-t border-slate-100 text-center bg-slate-50/50">
-              <a href="#" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition-colors">View All Notifications</a>
+              <a href="{{ url('/dashboard') }}" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition-colors">View All Notifications</a>
             </div>
           </div>
         </div>
+
 
         <div class="flex items-center gap-3 border-l border-slate-100 pl-5">
           <div class="hidden sm:block text-right">
@@ -252,10 +225,98 @@
       chevron.style.transform = dropdown.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
     }
 
+    function escapeHtml(str) {
+      return (str ?? '').toString()
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '<')
+        .replaceAll('>', '>')
+        .replaceAll('"', '"')
+        .replaceAll("'", '&#039;');
+    }
+
+        async function loadNotifications({updateBadge = true} = {}) {
+      const items = document.getElementById('notification-items');
+      if (!items) return;
+
+      if (updateBadge) {
+        const badge = document.querySelector('#notification-badge');
+        if (badge) badge.textContent = '...';
+      }
+
+      items.innerHTML = '<div class="p-4 text-xs text-slate-500">Loading…</div>';
+
+      try {
+        const resp = await fetch('/api/patient/notifications');
+        if (!resp.ok) throw new Error('Request failed');
+        const data = await resp.json();
+
+        const alerts = data.alerts ?? [];
+        const unread = data.alerts_count_unread ?? 0;
+
+        if (updateBadge) {
+          const badge = document.querySelector('#notification-badge');
+          if (badge) {
+            badge.textContent = String(unread);
+            badge.classList.toggle('hidden', unread <= 0);
+          }
+        }
+
+        if (!alerts.length) {
+          items.innerHTML = '<div class="p-4 text-xs text-slate-500">No alerts for today.</div>';
+          return;
+        }
+
+        items.innerHTML = alerts.map(a => {
+          const message = escapeHtml(a.message);
+          const createdAt = a.created_at ? new Date(a.created_at) : null;
+          const isUnread = !a.read_at;
+          const timeLabel = createdAt ? createdAt.toLocaleString() : 'Just now';
+
+          return `
+            <div class="flex gap-3 p-4 bg-emerald-50/50 border-b border-slate-100 hover:bg-slate-50 transition-colors cursor-pointer" ${isUnread ? 'data-unread="1"' : ''}>
+              <div class="w-8 h-8 bg-red-100 rounded-sm flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i class="fa-solid fa-triangle-exclamation text-red-500 text-xs"></i>
+              </div>
+              <div class="flex-1">
+                <div class="text-xs font-semibold text-slate-900">${escapeHtml(a.type || 'Alert')}</div>
+                <div class="text-[11px] text-slate-600 mt-0.5">${message}</div>
+                <div class="text-[10px] text-slate-400 mt-1">${escapeHtml(timeLabel)}</div>
+              </div>
+              <div class="w-2 h-2 ${isUnread ? 'bg-emerald-500' : 'bg-slate-200'} rounded-full mt-1.5 flex-shrink-0"></div>
+            </div>
+          `;
+        }).join('');
+      } catch (e) {
+        items.innerHTML = '<div class="p-4 text-xs text-red-500">Failed to load notifications.</div>';
+        if (updateBadge) {
+          const badge = document.querySelector('#notification-badge');
+          if (badge) badge.textContent = '0';
+        }
+      }
+    }
+
+
     function toggleNotifications() {
       const dropdown = document.getElementById('notification-dropdown');
       if (!dropdown) return;
+
+      const willShow = dropdown.classList.contains('hidden');
       dropdown.classList.toggle('hidden');
+      if (willShow) {
+        loadNotifications();
+      }
+    }
+
+    const markAll = document.getElementById('mark-all-read');
+    if (markAll) {
+      markAll.addEventListener('click', async () => {
+        try {
+          await fetch('/api/patient/notifications/mark-read', { method: 'POST' });
+        } catch (_) {
+          // ignore
+        }
+        await loadNotifications();
+      });
     }
 
     function toggleTask(el) {
@@ -292,6 +353,7 @@
       }
     });
   </script>
+
 
   @stack('scripts')
 </body>

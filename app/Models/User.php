@@ -91,5 +91,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(SystemAlert::class, 'user_id');
     }
+
+    public function givenInstructions()
+    {
+        return $this->hasMany(DoctorInstruction::class, 'doctor_id');
+    }
+
+    public function receivedInstructions()
+    {
+        return $this->hasMany(DoctorInstruction::class, 'patient_id');
+    }
 }
 
