@@ -5,9 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Carbon;
-
 
 class DashboardController
 {
@@ -18,10 +16,10 @@ class DashboardController
             return redirect()->to('/login');
         }
 
-        /** @var User $patient */
         $patient = User::query()->findOrFail($userId);
-
         $now = Carbon::now();
+        $today = $now->toDateString();
+        $todayDayName = strtolower($now->format('l'));
 
         $doneStatusValues = ['completed', 'done', 'finished'];
 
@@ -41,10 +39,8 @@ class DashboardController
 
         $lateTasksTodayCount = (clone $doneTasksTodayQuery)
             ->whereNotNull('completed_at')
-            ->whereRaw("completed_at > date(due_datetime) || completed_at > datetime(due_datetime, '+30 minutes')")
+            ->whereRaw("completed_at > datetime(due_datetime, '+30 minutes')")
             ->count();
-
-
 
         $missedTasksTodayCount = (clone $baseTasks)
             ->whereBetween('due_datetime', [$tasksToday, $tasksTomorrow])
@@ -96,9 +92,12 @@ class DashboardController
 
         $mealPlanItems = $patient
             ->mealPlans()
-            ->where('day', $now->toDateString())
+            ->where(function ($q) use ($today, $todayDayName) {
+                $q->where('day', $today)->orWhere('day', $todayDayName);
+            })
             ->orderBy('meal_time', 'asc')
-            ->get(['meal_time', 'description']);
+            ->limit(3)
+            ->get(['meal_time', 'description', 'status']);
 
         return view('user.dashboard', [
             'patient' => $patient,
@@ -116,7 +115,5 @@ class DashboardController
             'alerts' => $alerts,
             'now' => $now,
         ]);
-
     }
 }
-
