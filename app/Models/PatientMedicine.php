@@ -42,5 +42,12 @@ class PatientMedicine extends Model
     {
         return $this->hasMany(DoctorInstruction::class, 'patient_medicine_id');
     }
+
+    public function doses()
+    {
+        return $this->hasMany(PatientMedicineDose::class, 'patient_medicine_id');
+    }
+
 }
+
 

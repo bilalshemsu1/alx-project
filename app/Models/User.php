@@ -101,5 +101,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(DoctorInstruction::class, 'patient_id');
     }
+
+    public function activities()
+    {
+        return $this->hasMany(Activity::class, 'patient_id');
+    }
+
+    public function activityLogs()
+    {
+        return $this->hasMany(ActivityLog::class, 'patient_id');
+    }
 }
 

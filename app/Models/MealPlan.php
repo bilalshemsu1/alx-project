@@ -15,6 +15,7 @@ class MealPlan extends Model
         'day',
         'meal_time',
         'description',
+        'status',
     ];
 
     public function patient(): BelongsTo
@@ -22,4 +23,3 @@ class MealPlan extends Model
         return $this->belongsTo(User::class, 'patient_id');
     }
 }
-

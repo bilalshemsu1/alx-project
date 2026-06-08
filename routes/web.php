@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\User\ActivitiesController;
 use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\MealPlanController;
+use App\Http\Controllers\User\MedicinesController;
 use App\Http\Controllers\User\NotificationController;
+use App\Http\Controllers\User\PersonalizationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,11 +18,17 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 // Patient routes
 Route::middleware(['auth.redirect', 'role:patient'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/medications', fn() => view('user.medications'));
-    Route::get('/meal-plan', fn() => view('user.meal-plan'));
-    Route::get('/activities', fn() => view('user.activities'));
+    Route::get('/medications', [MedicinesController::class, 'index'])->name('medications.index');
+    Route::post('/medications/doses/{dose}/take', [MedicinesController::class, 'takeDose'])
+        ->name('medications.doses.take');
+    Route::get('/meal-plan', [MealPlanController::class, 'index'])->name('meal-plan.index');
+    Route::post('/meal-plan/{mealPlan}/take', [MealPlanController::class, 'takeMeal'])->name('meal-plan.take');
+    Route::get('/activities', [ActivitiesController::class, 'index'])->name('activities.index');
+    Route::post('/activities/{activity}/complete', [ActivitiesController::class, 'complete'])->name('activities.complete');
     Route::get('/appointments', fn() => view('user.appointments'));
-    Route::get('/personalization', fn() => view('user.personalization'));
+    Route::get('/personalization', [PersonalizationController::class, 'index'])->name('personalization.index');
+    Route::post('/personalization/save', [PersonalizationController::class, 'save'])->name('personalization.save');
+    Route::delete('/personalization/delete/{key}', [PersonalizationController::class, 'delete'])->name('personalization.delete');
 });
 
 // Doctor routes
